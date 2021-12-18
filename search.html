@@ -1,0 +1,98 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Task 2</title>
+</head>
+<body>
+
+<label for="fname">Search</label><br>
+  <input type="text" id="fname" name="fname" ><br><br>
+  <input type="submit" id='s' value="Submit">
+  
+  
+  
+  <div id='result'>
+  </div>
+
+
+<script>
+
+var obj;
+
+document.getElementById("s").addEventListener("click", function(){
+
+
+console.log(document.getElementById('fname').value)
+
+fetch("https://hatwlty6ef.execute-api.ap-south-1.amazonaws.com/search", {
+     
+   
+    method: "POST",
+     
+   
+    body: JSON.stringify({
+        firstname: document.getElementById('fname').value
+    }),
+     
+   
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+})
+ 
+// Converting to JSON
+.then(response => response.json())
+ 
+
+.then(json => {
+//	var temp = document.getElementById('result').createTextNode(json);
+	console.log(json['body']);
+	
+	obj = json['body']
+	
+
+	
+	document.getElementById("result").innerText = ""
+
+
+
+		
+		
+		console.log(obj.length)
+		
+        var text = ""
+		
+		const obj1 = JSON.parse(json['body']);
+		for(let i=0;i<obj1.length;i++){
+		
+		console.log(obj1[i])
+		 text += "<p>Firstname:<span>" + obj1[i]['First name'] + "</span></p>" + "<p>Lastname:<span>" + obj1[i]['last name'] + "</span></p>" + "<p>address:<span>" + obj1[i].Address + "</span></p>" + "<p>phone:<span>" + obj1[i]['Phone number'] + "</span></p>" + "<p>Age:<span>" + obj1[i].Age + "</span></p>  <br>";
+		
+		}
+	
+
+        document.getElementById("result").innerHTML = text
+		
+		
+		console.log(obj['first name'])
+
+
+	
+
+ 
+
+});
+
+
+}); 
+
+
+
+</script>
+
+</body>
+
+
+</html>
