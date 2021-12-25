@@ -19,12 +19,9 @@
 
 <script>
 
-var obj;
+
 
 document.getElementById("s").addEventListener("click", function(){
-
-
-console.log(document.getElementById('fname').value)
 
 fetch("https://hatwlty6ef.execute-api.ap-south-1.amazonaws.com/search", {
      
@@ -47,41 +44,28 @@ fetch("https://hatwlty6ef.execute-api.ap-south-1.amazonaws.com/search", {
  
 
 .then(json => {
-//	var temp = document.getElementById('result').createTextNode(json);
-	console.log(json['body']);
-	
-	obj = json['body']
-	
 
-	
 	document.getElementById("result").innerText = ""
-
-
-
-		
-		
-		console.log(obj.length)
-		
-        var text = ""
+	var text = ""
+	
+	text = "<br><br> Showing result for  " + document.getElementById('fname').value + "  <hr width=”300″>"  
+	
+	if (json['status'] == 1){
 		
 		const obj1 = JSON.parse(json['body']);
 		for(let i=0;i<obj1.length;i++){
 		
-		console.log(obj1[i])
-		 text += "<p>Firstname:<span>" + obj1[i]['First name'] + "</span></p>" + "<p>Lastname:<span>" + obj1[i]['last name'] + "</span></p>" + "<p>address:<span>" + obj1[i].Address + "</span></p>" + "<p>phone:<span>" + obj1[i]['Phone number'] + "</span></p>" + "<p>Age:<span>" + obj1[i].Age + "</span></p>  <br>";
+			text += "<p>Firstname:<span>" + obj1[i]['First name'] + "</span></p>" + "<p>Lastname:<span>" + obj1[i]['last name'] + "</span></p>" + "<p>address:<span>" + obj1[i].Address + "</span></p>" + "<p>phone:<span>" + obj1[i]['Phone number'] + "</span></p>" + "<p>Age:<span>" + obj1[i].Age + "</span></p>  <br>";
+		
+		                              }
+		}
+		else  {
+		
+		text += "<br> <h1>No result found</h1>"
 		
 		}
-	
-
-        document.getElementById("result").innerHTML = text
 		
-		
-		console.log(obj['first name'])
-
-
-	
-
- 
+		document.getElementById("result").innerHTML = text
 
 });
 
