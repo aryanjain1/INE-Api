@@ -27,17 +27,17 @@ def lambda_handler(event, context):
     if len(response['Items']) == 0:
         if len(response1['Items']) == 0:
             return {
-        'body': json.dumps('No data')
+        'status': 0
     }
         else:
           
             return {
-               
+               'status': 1,
         'body': json.dumps(response1['Items'])
     }
     else:
         
         return {
-           
+           'status': 1,
         'body': json.dumps(response['Items'])
     }
